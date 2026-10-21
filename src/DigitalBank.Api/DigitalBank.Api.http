@@ -1,0 +1,64 @@
+@HostAddress = http://localhost:5217
+
+### 1. Crear Perfil del Cliente
+# @name createCustomer
+POST {{HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "fullName": "Juan Pérez",
+  "birthDate": "1990-05-15",
+  "gender": 1,
+  "monthlyIncome": 3500.00
+}
+
+### 2. Consultar Cliente por Id
+@customerId = {{createCustomer.response.body.id}}
+GET {{HostAddress}}/api/customers/{{customerId}}
+
+### 3. Listar Todos los Clientes
+GET {{HostAddress}}/api/customers
+
+### 4. Crear Cuenta Bancaria (Algoritmo ACC-YYYYMMDD-[XXXX])
+# @name createAccount
+POST {{HostAddress}}/api/bank-accounts
+Content-Type: application/json
+
+{
+  "customerId": "{{customerId}}",
+  "initialBalance": 500.00
+}
+
+### 5. Consultar Saldo Actual
+@accountNumber = {{createAccount.response.body.accountNumber}}
+GET {{HostAddress}}/api/bank-accounts/{{accountNumber}}/balance
+
+### 6. Listar Todas las Cuentas Bancarias
+GET {{HostAddress}}/api/bank-accounts
+
+### 7. Registrar un Depósito (Incrementa saldo)
+POST {{HostAddress}}/api/bank-accounts/{{accountNumber}}/deposits
+Content-Type: application/json
+
+{
+  "amount": 250.00
+}
+
+### 7. Registrar un Retiro Exitoso (Decrementa saldo)
+POST {{HostAddress}}/api/bank-accounts/{{accountNumber}}/withdrawals
+Content-Type: application/json
+
+{
+  "amount": 100.00
+}
+
+### 8. Intentar un Retiro Sin Fondos (Rechazo limpio con HTTP 400 y mensaje en español)
+POST {{HostAddress}}/api/bank-accounts/{{accountNumber}}/withdrawals
+Content-Type: application/json
+
+{
+  "amount": 9999.00
+}
+
+### 9. Consultar Historial de Transacciones (Orden cronológico y saldo histórico)
+GET {{HostAddress}}/api/bank-accounts/{{accountNumber}}/transactions

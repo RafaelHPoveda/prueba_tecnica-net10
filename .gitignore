@@ -278,3 +278,5 @@ __pycache__/
 *.orig
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore,backup
+
+appsettings.development.json

@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DigitalBank.Api/DigitalBank.Api.csproj" />
+    <Project Path="src/DigitalBank.Application/DigitalBank.Application.csproj" />
+    <Project Path="src/DigitalBank.Domain/DigitalBank.Domain.csproj" />
+    <Project Path="src/DigitalBank.Infrastructure/DigitalBank.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DigitalBank.UnitTests/DigitalBank.UnitTests.csproj" />
+  </Folder>
+</Solution>
